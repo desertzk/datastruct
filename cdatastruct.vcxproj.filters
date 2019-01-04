@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="seqarray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="datastructpublic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="polynomial.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="arraystack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="arrayqueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="circlearrayqueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="linklist.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="doublelinklist.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="heap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="graph_adjacency.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="linkstack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="linkqueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cstring.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="seqarray.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="polynomial.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="arraystack.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="arrayqueue.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="circlearrayqueue.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="sort.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="linklist.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="heap.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graph_prim.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graph_shortestpath.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graph_adjacency.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="doublelinklist.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="linkstack.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="linkqueue.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cstring.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tree.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

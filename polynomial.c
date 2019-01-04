@@ -1,0 +1,5 @@
+
+
+
+
+int statictest = 1;
