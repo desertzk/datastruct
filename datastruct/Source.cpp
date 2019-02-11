@@ -9,56 +9,107 @@
 #include<algorithm>
 using namespace std;
 
-#define _MAXNUM3B 1000000
 int main()
 {
-	int lines = 0;
+	int bulls = 0;
+	vector<int> vout;
+	while (scanf("%d", &bulls))
+	{
+		//int *allnums=(int *)calloc(bulls,sizeof(int));
+		map<int, int> schedule;
+			//allnums.reserve(100000000);
+		for (int i = 0; i < bulls; ++i)
+		{
+			int begin = 0, end=0;
+			scanf("%d %d", &begin,&end);
+			schedule[begin] = end;
+		}
+		
+		schedule.begin();
 
-	scanf("%d",&lines);
+
+
+		
+	}
+	
+	system("pause");
+	return 0;
+
+}
+
+/*
+问题描述
+快到交配的季节了，Alice要准备为牧场里的牛进行配对。为了保证遗传性状的优良，不能随便找两头牛进行配对，
+要满足一定的条件。根据对牛的一系列遗传学分析，给每头牛计算出遗传特征的关键字编号，有些牛的是同一个品种
+并且性状一致，所以牛的特征编号可能重复。如果两头牛的编号之和恰为K，那么从遗传学的理论的视角看，
+这两头牛进行配对结果将是最优的，Alice就要把这两头牛挑出来放在一个畜栏中准备为它们配对。
+现在告诉你所有牛的编号和数字K，请你帮Alice找出一对可以配对的牛。
+
+Input
+输入有3行，第一行一个正整数N表示共有N头牛，第二行有N个数字，分别表示各牛的编号，第三行一个正整数K。
+
+0 < N ≤ 100000
+牛的编号是[0,108]之间的整数
+0≤K≤230
+Output
+对于数字K，如果能找到两头牛的编号之和是K，就在一行中输出这两头牛的编号，小的在前，大的在后，中间用一个空格分隔。
+若有多对牛都满足条件，则只输出较小编号更小的那两头牛。若找不到合适的牛，就在一行中输出No
+
+Sample Input
+4
+2 5 1 4
+6
+Sample Output
+1 5
+
+*/
+
+int main3C()
+{
+	int bulls = 0;
+
+	scanf("%d", &bulls);
 	vector<int> allnums;
-	for (int i = 0; i < lines; ++i)
+	for (int i = 0; i < bulls; ++i)
 	{
 		int num = 0;
 		scanf("%d", &num);
 		allnums.push_back(num);
 	}
-
-	int *test4ok = (int *)calloc(lines, sizeof(int));
-	int *testeachnum=(int *)calloc(lines, sizeof(int));
-	bool bluck = true;
-	for (int i = 0; i < lines-1; ++i)
+	int K = 0;
+	scanf("%d", &K);
+	sort(allnums.begin(), allnums.end());
+	bool findpair = false;
+	for (int i=0;i<allnums.size();i++)
 	{
-		//int muti=allnums[i] * allnums[i - 1];
-		for (int j = i+1; j < lines; ++j)
+		/*int first = allnums[i];//timeout
+		for (int j = allnums.size() - 1; j >i; j--)
 		{
-			if (testeachnum[j] > 1)//相邻数最多用2次
-				continue;
-			int muti = allnums[i] * allnums[j];
-			if (muti % 4 == 0)
+			if (first + allnums[j] == K)
 			{
-				//can /4 test next i
-				test4ok[i] = 1;
-				testeachnum[j]++;
+				cout << first << " " << allnums[j] << endl;
+				findpair = true;
 				break;
 			}
-			
+		}*/
+		//get rid of timeout by using binary_search
+		if (binary_search(allnums.begin() + i + 1, allnums.end(), K - allnums[i]))
+		{
+			cout << allnums[i] << " " << K - allnums[i] << endl;
+			findpair = true;
+			break;
 		}
-	}
 
-	for (int i = 0; i < lines - 1; ++i)
-	{
-		if (test4ok[i] == 0)
-			bluck = false;
-	}
-
-
-	if (bluck)
-		cout << "Yes" << endl;
-	else
+		if (findpair)
+			break;
+	}/**/
+	
+	if (!findpair)
 		cout << "No" << endl;
-	system("pause");
-}
 
+	//system("pause");
+	return 0;
+}
 
 //A - 质数的最大乘积 
 int isprime_number(int num)
@@ -944,5 +995,106 @@ int main3A()
 	cout << line2<< endl;*/
 	return 0;
 	system("pause");
+}
+
+
+
+/*
+right answer
+将数列的各项分成三类：是4的倍数，不是4但是2的倍数，不是2的倍数,每类数的个数分别用a4,a2,a1表示。如果要构成幸运数列，要求相邻的数字相乘是4的倍数，为了尽可能多的利用数字，a1只能与a4相邻，而a2可以与a4也可以与a2相邻。若已经统计出了数列中a4,a2与a1，如何判断数列能否组成幸运数列呢？
+先解决a1的问题，a1必须配合a4出现，a1的数量若多于a4则必不是幸运数列。具体来说，先使a1与a4交替出现，[a1,a4,a1,a4,...]，这时若这一段数列的最后一个数是a1(此时a1=a4+1),那么后边接a2则不能排成幸运数列，所以当a2==0且a4<=a1+1时可以排成幸运数列。
+如果有这段数列最后一个数是a4(此时a1≤a4),后边可以接a2，又由于a2可以与a2相邻，所以要在a2>0时需要a1≤a4的条件下则可排成幸运数列。
+其它条件输出"No"
+*/
+int main3B(void)
+{
+	int a1count = 0, a2count = 0, a4count = 0;
+	int i, N, x;
+	scanf("%d", &N);
+	while (N--)
+	{
+		scanf("%d", &x);
+		if (x % 4 == 0)
+			a4count++;
+		else if (x % 2 == 0)
+			a2count++;
+		else
+			a1count++;
+	}
+	if (a2count>0 && a1count <= a4count)
+		printf("Yes\n");
+	else if (a2count == 0 && a1count <= a4count + 1)
+		printf("Yes\n");
+	else
+		printf("No\n");
+
+	return 0;
+}
+
+bool testdivid4(vector<int> &allnums)
+{
+	for (int i = 0; i < allnums.size(); ++i)
+	{
+		int muti = allnums[i] * allnums[i - 1];
+		if (muti % 4 != 0)
+		{
+			//can /4 test next i
+
+			return false;
+		}
+	}
+	return true;
+}
+
+#define _MAXNUM3B 1000000
+//14/19 partial success
+int main3Bp()
+{
+	int lines = 0;
+
+	scanf("%d", &lines);
+	vector<int> allnums;
+	for (int i = 0; i < lines; ++i)
+	{
+		int num = 0;
+		scanf("%d", &num);
+		allnums.push_back(num);
+	}
+
+	int *test4ok = (int *)calloc(lines, sizeof(int));
+	int *testeachnum = (int *)calloc(lines, sizeof(int));
+	bool bluck = true;
+	for (int i = 0; i < lines - 1; ++i)
+	{
+		//int muti=allnums[i] * allnums[i - 1];
+		for (int j = i + 1; j < lines; ++j)
+		{
+			if (testeachnum[j] > 1)//相邻数最多用2次
+				continue;
+			int muti = allnums[i] * allnums[j];
+			if (muti % 4 == 0)
+			{
+				//can /4 test next i
+				test4ok[i] = 1;
+				testeachnum[j]++;
+				break;
+			}
+
+		}
+	}
+
+	for (int i = 0; i < lines - 1; ++i)
+	{
+		if (test4ok[i] == 0)
+			bluck = false;
+	}
+
+
+	if (bluck)
+		cout << "Yes" << endl;
+	else
+		cout << "No" << endl;
+	system("pause");
+	return 0;
 }
 
