@@ -38,6 +38,36 @@ bool operator<(const time &left, const time &right)
 }
 
 
+int hours[24] = { 0 };
+
+bool fillhours(int begin, int end)
+{
+	
+	int len = end - begin;
+	for (int i = 0; i < len; ++i)
+	{
+		if (hours[begin+i] >= 2)
+		{
+			return false;
+		}
+	}
+
+	if (hours[begin] == 1)
+	{
+		hours[begin] = 2;
+	}
+	else {
+		hours[begin] = 1;
+	}
+	for (int i = 1; i < len; ++i)
+	{
+		hours[begin + i] = 2;
+	}
+	hours[begin+len] = 1;
+	return true;
+	
+}
+
 
 int main()
 {
@@ -61,18 +91,24 @@ int main()
 		int count = 0;
 		int lastend = 0;
 
-		map<time, int>::iterator minbegindur= schedule.end();
+		map<time, int>::iterator minbegindur= schedule.begin();
 		for (auto it = schedule.begin(); it != schedule.end(); ++it)
 		{
-			for (auto it = schedule.begin(); it != schedule.end(); ++it)
-			{
-				if (minbegindur!= schedule.end()&& it->first.begin >= lastend &&minbegindur->first.begin<it->first.begin)
-				{
-					minbegindur = it;
-					
-				}
-			}
 
+
+			/*if (it->first.begin >= lastend)
+			{
+				for (auto it2 = schedule.begin(); it2 != schedule.end(); ++it2)
+				{
+					if ( minbegindur->first.begin < it->first.begin)
+					{
+						minbegindur = it2;
+
+					}
+				}
+			}*/
+			
+			
 			if (minbegindur != schedule.end())
 			{
 				count++;
