@@ -9,6 +9,36 @@
 #include<algorithm>
 using namespace std;
 
+
+struct time {
+	int begin;
+	int during;
+
+};
+
+bool operator<(const time &left, const time &right)
+{
+	if (left.during < right.during)
+	{
+		return true;
+	}
+	else if (left.during == right.during)
+	{
+		if (left.begin < right.begin)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
+}
+
+
+
 int main()
 {
 	int bulls = 0;
@@ -16,19 +46,43 @@ int main()
 	while (scanf("%d", &bulls))
 	{
 		//int *allnums=(int *)calloc(bulls,sizeof(int));
-		map<int, int> schedule;
+		map<time, int> schedule;
 			//allnums.reserve(100000000);
 		for (int i = 0; i < bulls; ++i)
 		{
 			int begin = 0, end=0;
 			scanf("%d %d", &begin,&end);
-			schedule[begin] = end;
+
+			time t;
+			t.begin = begin;
+			t.during = end - begin;
+			schedule.insert(make_pair(t, end));
 		}
-		
-		schedule.begin();
+		int count = 0;
+		int lastend = 0;
+
+		map<time, int>::iterator minbegindur= schedule.end();
+		for (auto it = schedule.begin(); it != schedule.end(); ++it)
+		{
+			for (auto it = schedule.begin(); it != schedule.end(); ++it)
+			{
+				if (minbegindur!= schedule.end()&& it->first.begin >= lastend &&minbegindur->first.begin<it->first.begin)
+				{
+					minbegindur = it;
+					
+				}
+			}
+
+			if (minbegindur != schedule.end())
+			{
+				count++;
+				lastend = it->second;
+			}
+			
+		}
 
 
-
+		cout << count << endl;
 		
 	}
 	
