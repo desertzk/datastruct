@@ -8,6 +8,30 @@
 #include<cmath>
 #include<algorithm>
 using namespace std;
+vector<vector<int>> graze;
+//E
+int main()
+{
+	int lines = 0, linenums = 0;
+	scanf("%d %d",&lines,&linenums);
+	for (int i = 0; i < lines; i++)
+	{
+		vector<int> v;
+		for (int j = 0; j < linenums; j++)
+		{
+			int gross = 0;
+			scanf("%d", &gross);
+			v.push_back(gross);
+		}
+		graze.push_back(v);
+	}
+	int maxrow = lines-1;
+	int maxcol = linenums - 1;
+	graze[maxrow][maxcol];
+
+	system("pause");
+	return 0;
+}
 
 
 
