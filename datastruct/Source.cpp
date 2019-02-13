@@ -10,196 +10,6 @@
 using namespace std;
 
 
-struct time {
-	int begin;
-	int during;
-
-};
-
-bool operator<(const time &left, const time &right)
-{
-	if (left.during < right.during)
-	{
-		return true;
-	}
-	else if (left.during == right.during)
-	{
-		if (left.begin < right.begin)
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else {
-		return false;
-	}
-}
-
-
-int hours[24] = { 0 };
-
-bool fillhours(int begin, int end)
-{
-	
-	int len = end - begin;
-	for (int i = 0; i < len; ++i)
-	{
-		if (hours[begin+i] >= 2)
-		{
-			return false;
-		}
-	}
-
-	if (hours[begin] == 1)
-	{
-		hours[begin] = 2;
-	}
-	else {
-		hours[begin] = 1;
-	}
-	for (int i = 1; i < len; ++i)
-	{
-		hours[begin + i] = 2;
-	}
-	hours[begin+len] = 1;
-	return true;
-	
-}
-
-
-int main()
-{
-	int bulls = 0;
-	vector<int> vout;
-	while (scanf("%d", &bulls))
-	{
-		//int *allnums=(int *)calloc(bulls,sizeof(int));
-		map<time, int> schedule;
-			//allnums.reserve(100000000);
-		for (int i = 0; i < bulls; ++i)
-		{
-			int begin = 0, end=0;
-			scanf("%d %d", &begin,&end);
-
-			time t;
-			t.begin = begin;
-			t.during = end - begin;
-			schedule.insert(make_pair(t, end));
-		}
-		int count = 0;
-		int lastend = 0;
-
-		map<time, int>::iterator minbegindur= schedule.begin();
-		for (auto it = schedule.begin(); it != schedule.end(); ++it)
-		{
-
-
-			/*if (it->first.begin >= lastend)
-			{
-				for (auto it2 = schedule.begin(); it2 != schedule.end(); ++it2)
-				{
-					if ( minbegindur->first.begin < it->first.begin)
-					{
-						minbegindur = it2;
-
-					}
-				}
-			}*/
-			
-			
-			if (minbegindur != schedule.end())
-			{
-				count++;
-				lastend = it->second;
-			}
-			
-		}
-
-
-		cout << count << endl;
-		
-	}
-	
-	system("pause");
-	return 0;
-
-}
-
-/*
-问题描述
-快到交配的季节了，Alice要准备为牧场里的牛进行配对。为了保证遗传性状的优良，不能随便找两头牛进行配对，
-要满足一定的条件。根据对牛的一系列遗传学分析，给每头牛计算出遗传特征的关键字编号，有些牛的是同一个品种
-并且性状一致，所以牛的特征编号可能重复。如果两头牛的编号之和恰为K，那么从遗传学的理论的视角看，
-这两头牛进行配对结果将是最优的，Alice就要把这两头牛挑出来放在一个畜栏中准备为它们配对。
-现在告诉你所有牛的编号和数字K，请你帮Alice找出一对可以配对的牛。
-
-Input
-输入有3行，第一行一个正整数N表示共有N头牛，第二行有N个数字，分别表示各牛的编号，第三行一个正整数K。
-
-0 < N ≤ 100000
-牛的编号是[0,108]之间的整数
-0≤K≤230
-Output
-对于数字K，如果能找到两头牛的编号之和是K，就在一行中输出这两头牛的编号，小的在前，大的在后，中间用一个空格分隔。
-若有多对牛都满足条件，则只输出较小编号更小的那两头牛。若找不到合适的牛，就在一行中输出No
-
-Sample Input
-4
-2 5 1 4
-6
-Sample Output
-1 5
-
-*/
-
-int main3C()
-{
-	int bulls = 0;
-
-	scanf("%d", &bulls);
-	vector<int> allnums;
-	for (int i = 0; i < bulls; ++i)
-	{
-		int num = 0;
-		scanf("%d", &num);
-		allnums.push_back(num);
-	}
-	int K = 0;
-	scanf("%d", &K);
-	sort(allnums.begin(), allnums.end());
-	bool findpair = false;
-	for (int i=0;i<allnums.size();i++)
-	{
-		/*int first = allnums[i];//timeout
-		for (int j = allnums.size() - 1; j >i; j--)
-		{
-			if (first + allnums[j] == K)
-			{
-				cout << first << " " << allnums[j] << endl;
-				findpair = true;
-				break;
-			}
-		}*/
-		//get rid of timeout by using binary_search
-		if (binary_search(allnums.begin() + i + 1, allnums.end(), K - allnums[i]))
-		{
-			cout << allnums[i] << " " << K - allnums[i] << endl;
-			findpair = true;
-			break;
-		}
-
-		if (findpair)
-			break;
-	}/**/
-	
-	if (!findpair)
-		cout << "No" << endl;
-
-	//system("pause");
-	return 0;
-}
 
 //A - 质数的最大乘积 
 int isprime_number(int num)
@@ -213,9 +23,6 @@ int isprime_number(int num)
 	}
 	return true;
 }
-
-
-
 //两个质数的和是S，它们的积最大是多少?
 int mainA()
 {
@@ -1187,4 +994,248 @@ int main3Bp()
 	system("pause");
 	return 0;
 }
+
+
+
+
+
+/*
+Alice的牧场中有好多奶牛，每天挤牛奶要花不少时间，有的牛产奶快，挤的时间就比较短，有的牛则产奶慢。并且不同的牛在一天之中的产奶时间也不同。在长期挤奶的过程中，Alice总结出了每天牛产奶的时间表，请你根据牛产奶的时间帮Alice计算一下最多能接到几头牛产出的牛奶。由于挤牛奶需要带的用具比较多，如果错过了牛产奶的开始时间，Alice就不会选择这头牛挤奶。一旦开始挤牛奶，就要一直挤到这头牛产奶结束而不能中断去另一头牛挤牛奶。
+
+Input
+多组数据。每组数据的第一行是N，表示共有N头牛。接下来N行，每行有两个整数，表示牛开始产奶和结束的时间。数据输入的最后N=0表示数据结束
+
+0 < N ≤ 100
+各时间表示为[0,1000]的整数
+Output
+对每组数据，输出Alice最多能接到几头牛产的牛奶
+
+测试样例
+输入样例
+2
+1 2
+2 3
+8
+3 4
+0 7
+3 8
+15 19
+15 20
+10 15
+8 18
+6 12
+0
+输出样例
+2
+3
+*/
+struct mytime {
+	int begin;
+	int end;
+	int during;
+
+};
+
+bool operator<(const mytime &left, const mytime &right)
+{
+
+	if (left.end < right.end)
+	{
+		return true;
+	}
+	else if (left.end == right.end)
+	{
+		if (left.during < right.during)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
+}
+
+
+
+
+bool fillhours(int begin, int end, int hours[24])
+{
+
+	int len = end - begin;
+	//check
+	for (int i = 0; i < len; ++i)
+	{
+		if (hours[begin + i] >= 2)
+		{
+			return false;
+		}
+	}
+
+	if (hours[begin] == 1)
+	{
+		hours[begin] = 2;
+	}
+	else {
+		//开头设置为3
+		hours[begin] = 3;
+	}
+	for (int i = 1; i <len; ++i)
+	{
+		hours[begin + i] = 2;
+	}
+	//结尾设置为1
+	if (hours[begin + len] == 3)
+		hours[begin + len] = 2;
+	else
+		hours[begin + len] = 1;
+	return true;
+
+}
+
+//看答案的 自己做错的
+int main3D()
+{
+	int bulls = 0;
+	vector<int> vout;
+	while (scanf("%d", &bulls))
+	{
+		if (bulls == 0)
+			break;
+		//int *allnums=(int *)calloc(bulls,sizeof(int));
+		map<mytime, int> schedule;
+		//allnums.reserve(100000000);
+		for (int i = 0; i < bulls; ++i)
+		{
+			int begin = 0, end = 0;
+			scanf("%d %d", &begin, &end);
+
+			mytime t;
+			t.begin = begin;
+			t.during = end - begin;
+			t.end = end;
+			schedule.insert(make_pair(t, end));
+		}
+		int count = 0;
+		int lastend = 0;
+		int newhours[24] = { 0 };
+		//map<time, int>::iterator minbegindur= schedule.begin();
+		for (auto it = schedule.begin(); it != schedule.end(); ++it)
+		{
+
+
+			/*if (it->first.begin >= lastend)
+			{
+			for (auto it2 = schedule.begin(); it2 != schedule.end(); ++it2)
+			{
+			if ( minbegindur->first.begin < it->first.begin)
+			{
+			minbegindur = it2;
+
+			}
+			}
+			}*/
+
+			//fillhours(it->first.begin, it->second, newhours)
+			if (it->first.begin >= lastend)
+			{
+				count++;
+				lastend = it->second;
+			}
+
+		}
+
+		vout.push_back(count);
+
+
+	}
+
+
+	for (int i = 0; i < vout.size(); i++)
+	{
+		cout << vout[i] << endl;
+	}
+	system("pause");
+	return 0;
+
+}
+
+/*
+问题描述
+快到交配的季节了，Alice要准备为牧场里的牛进行配对。为了保证遗传性状的优良，不能随便找两头牛进行配对，
+要满足一定的条件。根据对牛的一系列遗传学分析，给每头牛计算出遗传特征的关键字编号，有些牛的是同一个品种
+并且性状一致，所以牛的特征编号可能重复。如果两头牛的编号之和恰为K，那么从遗传学的理论的视角看，
+这两头牛进行配对结果将是最优的，Alice就要把这两头牛挑出来放在一个畜栏中准备为它们配对。
+现在告诉你所有牛的编号和数字K，请你帮Alice找出一对可以配对的牛。
+
+Input
+输入有3行，第一行一个正整数N表示共有N头牛，第二行有N个数字，分别表示各牛的编号，第三行一个正整数K。
+
+0 < N ≤ 100000
+牛的编号是[0,108]之间的整数
+0≤K≤230
+Output
+对于数字K，如果能找到两头牛的编号之和是K，就在一行中输出这两头牛的编号，小的在前，大的在后，中间用一个空格分隔。
+若有多对牛都满足条件，则只输出较小编号更小的那两头牛。若找不到合适的牛，就在一行中输出No
+
+Sample Input
+4
+2 5 1 4
+6
+Sample Output
+1 5
+
+*/
+
+int main3C()
+{
+	int bulls = 0;
+
+	scanf("%d", &bulls);
+	vector<int> allnums;
+	for (int i = 0; i < bulls; ++i)
+	{
+		int num = 0;
+		scanf("%d", &num);
+		allnums.push_back(num);
+	}
+	int K = 0;
+	scanf("%d", &K);
+	sort(allnums.begin(), allnums.end());
+	bool findpair = false;
+	for (int i = 0; i<allnums.size(); i++)
+	{
+		/*int first = allnums[i];//timeout
+		for (int j = allnums.size() - 1; j >i; j--)
+		{
+		if (first + allnums[j] == K)
+		{
+		cout << first << " " << allnums[j] << endl;
+		findpair = true;
+		break;
+		}
+		}*/
+		//get rid of timeout by using binary_search
+		if (binary_search(allnums.begin() + i + 1, allnums.end(), K - allnums[i]))
+		{
+			cout << allnums[i] << " " << K - allnums[i] << endl;
+			findpair = true;
+			break;
+		}
+
+		if (findpair)
+			break;
+	}/**/
+
+	if (!findpair)
+		cout << "No" << endl;
+
+	//system("pause");
+	return 0;
+}
+
+
+
 
